@@ -1,0 +1,36 @@
+modLoader="javafml"
+loaderVersion="*"
+license="All rights reserved"
+issueTrackerURL="https://github.com/Serilum/.issue-tracker/labels/Mod:%20Quicksaving"
+logoFile="icon.png"
+
+[[mods]]
+modId="quicksaving"
+version="1.0"
+displayName="Quicksaving"
+displayURL="https://serilum.com/mod/quicksaving"
+authors="Rick South"
+description='''Adds quicksave and quickload capabilities, optionally client-side only.
+'''
+credits='''Thank you very much to my Membership sponsors for supporting the development of this mod:  
+
+Alister, Andrean Olgo, aternosorg, BirdieMiner, Cherriesaurus, Michael W. S., Shana Gitnick, Sukhmai, Tyler Behl   
+
+If you would like to contribute too, check out https://serilum.com/donate. Appreciate it! <3   
+'''
+
+[[dependencies.quicksaving]]
+    modId="collective"
+    type="required"
+    mandatory=true
+    versionRange="[7.68,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.quicksaving]]
+    modId="minecraft"
+    type="required"
+    mandatory=true
+    versionRange="[1.20.1]"
+    ordering="NONE"
+    side="BOTH"
