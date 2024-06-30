@@ -3,34 +3,43 @@ package com.natamus.quicksaving.networking.packets;
 import com.natamus.collective.functions.MessageFunctions;
 import com.natamus.collective.implementations.networking.data.PacketContext;
 import com.natamus.collective.implementations.networking.data.Side;
+import com.natamus.collective.services.Services;
 import com.natamus.quicksaving.config.ConfigHandler;
 import com.natamus.quicksaving.util.Reference;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3f;
 
 public class ToServerTeleportPlayerPacket {
     public static final ResourceLocation CHANNEL = new ResourceLocation(Reference.MOD_ID, "to_server_teleport_player_packet");
 
     private static Vector3f teleportLocation;
+    private static ResourceKey<Level> teleportDimension;
 
-    public ToServerTeleportPlayerPacket(Vector3f teleportLocationIn) {
+    public ToServerTeleportPlayerPacket(Vector3f teleportLocationIn, ResourceKey<Level> teleportDimensionIn) {
         teleportLocation = teleportLocationIn;
+        teleportDimension = teleportDimensionIn;
     }
 
     public static ToServerTeleportPlayerPacket decode(FriendlyByteBuf buf) {
         Vector3f teleportLocationIn = buf.readVector3f();
+        ResourceKey<Level> teleportDimensionIn = buf.readResourceKey(Registries.DIMENSION);
 
-        return new ToServerTeleportPlayerPacket(teleportLocationIn);
+        return new ToServerTeleportPlayerPacket(teleportLocationIn, teleportDimensionIn);
     }
 
     public void encode(FriendlyByteBuf buf) {
         buf.writeVector3f(teleportLocation);
+        buf.writeResourceKey(teleportDimension);
     }
 
     public static void handle(PacketContext<ToServerTeleportPlayerPacket> ctx) {
@@ -46,7 +55,13 @@ public class ToServerTeleportPlayerPacket {
                 player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 20, 255, true, false));
             }
 
-            player.teleportTo(teleportLocation.x, teleportLocation.y, teleportLocation.z);
+            if (player.level().dimension().equals(teleportDimension)) {
+                player.teleportTo(teleportLocation.x, teleportLocation.y, teleportLocation.z);
+            }
+            else {
+                Services.TELEPORT.teleportEntity(player, teleportDimension, new Vec3(teleportLocation.x, teleportLocation.y, teleportLocation.z));
+            }
+
             player.displayClientMessage(Component.literal("Quickloaded.").withStyle(ChatFormatting.DARK_GREEN), true);
         }
     }

@@ -22,6 +22,8 @@ public class Util {
 		}
 
 		Variables.savedLocation = new Vector3f((float)player.position().x, (float)player.position().y, (float)player.position().z);
+		Variables.savedDimension = player.level().dimension();
+
 		player.displayClientMessage(Component.literal("Quicksaved.").withStyle(ChatFormatting.DARK_GREEN), true);
 	}
 
@@ -34,12 +36,12 @@ public class Util {
 			return;
 		}
 
-		if (Variables.savedLocation == null) {
+		if (Variables.savedLocation == null || Variables.savedDimension == null) {
 			return;
 		}
 
 		if (Variables.isInstalledOnServer) {
-			Dispatcher.sendToServer(new ToServerTeleportPlayerPacket(Variables.savedLocation));
+			Dispatcher.sendToServer(new ToServerTeleportPlayerPacket(Variables.savedLocation, Variables.savedDimension));
 		}
 		else {
 			if (player.hasPermissions(2)) {
@@ -47,7 +49,7 @@ public class Util {
 					player.connection.sendCommand("effect give @p minecraft:slow_falling 1 255 true");
 				}
 
-				player.connection.sendCommand("tp @p " + String.format("%.2f", Variables.savedLocation.x) + " " + String.format("%.2f", Variables.savedLocation.y) + " " + String.format("%.2f", Variables.savedLocation.z));
+				player.connection.sendCommand("execute in " + Variables.savedDimension.location() + " run tp @p " + String.format("%.2f", Variables.savedLocation.x) + " " + String.format("%.2f", Variables.savedLocation.y) + " " + String.format("%.2f", Variables.savedLocation.z));
 
 				player.displayClientMessage(Component.literal("Quickloaded.").withStyle(ChatFormatting.DARK_GREEN), true);
 			}
