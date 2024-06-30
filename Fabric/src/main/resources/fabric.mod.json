@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "quicksaving",
-  "version": "1.0",
+  "version": "1.1",
 
   "name": "Quicksaving",
   "description": "Adds quicksave and quickload capabilities, optionally client-side only.",
@@ -23,7 +23,7 @@
     "fabric": "*",
     "minecraft": ">=1.21",
     "java": ">=21",
-    "collective": ">=7.68"
+    "collective": ">=7.70"
   },
 
   "custom": {
