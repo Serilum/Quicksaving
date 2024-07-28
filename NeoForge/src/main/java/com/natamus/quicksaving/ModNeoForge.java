@@ -1,6 +1,7 @@
 package com.natamus.quicksaving;
 
 import com.natamus.collective.check.RegisterMod;
+import com.natamus.collective.check.ShouldLoadCheck;
 import com.natamus.quicksaving.neoforge.config.IntegrateNeoForgeConfig;
 import com.natamus.quicksaving.neoforge.events.NeoForgeKeyMappingRegister;
 import com.natamus.quicksaving.neoforge.events.NeoForgeQuicksaveEvents;
@@ -17,6 +18,10 @@ import net.neoforged.neoforge.common.NeoForge;
 public class ModNeoForge {
 	
 	public ModNeoForge(IEventBus modEventBus) {
+		if (!ShouldLoadCheck.shouldLoad(Reference.MOD_ID)) {
+			return;
+		}
+
 		modEventBus.addListener(this::loadComplete);
 		modEventBus.register(NeoForgeKeyMappingRegister.class);
 
