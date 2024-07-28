@@ -1,6 +1,7 @@
 package com.natamus.quicksaving;
 
 import com.natamus.collective.check.RegisterMod;
+import com.natamus.collective.check.ShouldLoadCheck;
 import com.natamus.quicksaving.forge.config.IntegrateForgeConfig;
 import com.natamus.quicksaving.forge.events.ForgeKeyMappingRegister;
 import com.natamus.quicksaving.forge.events.ForgeQuicksaveEvents;
@@ -18,6 +19,10 @@ import net.minecraftforge.fml.loading.FMLEnvironment;
 public class ModForge {
 	
 	public ModForge() {
+		if (!ShouldLoadCheck.shouldLoad(Reference.MOD_ID)) {
+			return;
+		}
+
 		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
 		modEventBus.addListener(this::loadComplete);
