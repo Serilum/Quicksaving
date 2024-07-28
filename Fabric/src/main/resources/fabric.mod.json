@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "quicksaving",
-  "version": "1.1",
+  "version": "1.2",
 
   "name": "Quicksaving",
   "description": "Adds quicksave and quickload capabilities, optionally client-side only.",
@@ -23,7 +23,7 @@
     "fabric": "*",
     "minecraft": ">=1.20",
     "java": ">=21",
-    "collective": ">=7.70"
+    "collective": ">=7.78"
   },
 
   "custom": {
@@ -44,11 +44,10 @@
 	  " Alister",
 	  " Andrean Olgo",
 	  " aternosorg",
-	  " BirdieMiner",
 	  " Cherriesaurus",
 	  " Michael W. S.",
+	  " Nahuel Fernandez",
 	  " Shana Gitnick",
-	  " Sukhmai",
 	  " Tyler Behl"
   ]
 }
