@@ -22,12 +22,12 @@ import org.joml.Vector3f;
 public class ToServerTeleportPlayerPacket {
     public static final ResourceLocation CHANNEL = new ResourceLocation(Reference.MOD_ID, "to_server_teleport_player_packet");
 
-    private static Vector3f teleportLocation;
-    private static ResourceKey<Level> teleportDimension;
+    private final Vector3f teleportLocation;
+    private final ResourceKey<Level> teleportDimension;
 
     public ToServerTeleportPlayerPacket(Vector3f teleportLocationIn, ResourceKey<Level> teleportDimensionIn) {
-        teleportLocation = teleportLocationIn;
-        teleportDimension = teleportDimensionIn;
+        this.teleportLocation = teleportLocationIn;
+        this.teleportDimension = teleportDimensionIn;
     }
 
     public static ToServerTeleportPlayerPacket decode(FriendlyByteBuf buf) {
@@ -44,6 +44,7 @@ public class ToServerTeleportPlayerPacket {
 
     public static void handle(PacketContext<ToServerTeleportPlayerPacket> ctx) {
         if (ctx.side().equals(Side.SERVER)) {
+            ToServerTeleportPlayerPacket packet = ctx.message();
             Player player = ctx.sender();
 
 			if (ConfigHandler.musthaveCheatAccessForQuickloadOnServer && !player.hasPermissions(2)) {
@@ -55,11 +56,11 @@ public class ToServerTeleportPlayerPacket {
                 player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 20, 255, true, false));
             }
 
-            if (player.level().dimension().equals(teleportDimension)) {
-                player.teleportTo(teleportLocation.x, teleportLocation.y, teleportLocation.z);
+            if (player.level().dimension().equals(packet.teleportDimension)) {
+                player.teleportTo(packet.teleportLocation.x, packet.teleportLocation.y, packet.teleportLocation.z);
             }
             else {
-                Services.TELEPORT.teleportEntity(player, teleportDimension, new Vec3(teleportLocation.x, teleportLocation.y, teleportLocation.z));
+                Services.TELEPORT.teleportEntity(player, packet.teleportDimension, new Vec3(packet.teleportLocation.x, packet.teleportLocation.y, packet.teleportLocation.z));
             }
 
             player.displayClientMessage(Component.literal("Quickloaded.").withStyle(ChatFormatting.DARK_GREEN), true);
