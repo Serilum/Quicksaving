@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "quicksaving",
-  "version": "1.4",
+  "version": "1.5",
 
   "name": "Quicksaving",
   "description": "Adds quicksave and quickload capabilities, optionally client-side only.",
