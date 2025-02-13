@@ -6,7 +6,7 @@ logoFile="icon.png"
 
 [[mods]]
 modId="quicksaving"
-version="1.4"
+version="1.5"
 displayName="Quicksaving"
 displayURL="https://curseforge.com/minecraft/mc-mods/quicksaving"
 authors="Rick South"

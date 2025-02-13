@@ -21,12 +21,12 @@ import net.minecraft.world.phys.Vec3;
 public class ToServerTeleportPlayerPacket {
     public static final ResourceLocation CHANNEL = ResourceLocation.fromNamespaceAndPath(Reference.MOD_ID, "to_server_teleport_player_packet");
 
-    private static Vec3 teleportLocation;
-    private static ResourceKey<Level> teleportDimension;
+    private final Vec3 teleportLocation;
+    private final ResourceKey<Level> teleportDimension;
 
     public ToServerTeleportPlayerPacket(Vec3 teleportLocationIn, ResourceKey<Level> teleportDimensionIn) {
-        teleportLocation = teleportLocationIn;
-        teleportDimension = teleportDimensionIn;
+        this.teleportLocation = teleportLocationIn;
+        this.teleportDimension = teleportDimensionIn;
     }
 
     public static ToServerTeleportPlayerPacket decode(FriendlyByteBuf buf) {
@@ -43,6 +43,7 @@ public class ToServerTeleportPlayerPacket {
 
     public static void handle(PacketContext<ToServerTeleportPlayerPacket> ctx) {
         if (ctx.side().equals(Side.SERVER)) {
+            ToServerTeleportPlayerPacket packet = ctx.message();
             Player player = ctx.sender();
 
 			if (ConfigHandler.musthaveCheatAccessForQuickloadOnServer && !player.hasPermissions(2)) {
@@ -54,11 +55,11 @@ public class ToServerTeleportPlayerPacket {
                 player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 20, 255, true, false));
             }
 
-            if (player.level().dimension().equals(teleportDimension)) {
-                player.teleportTo(teleportLocation.x, teleportLocation.y, teleportLocation.z);
+            if (player.level().dimension().equals(packet.teleportDimension)) {
+                player.teleportTo(packet.teleportLocation.x, packet.teleportLocation.y, packet.teleportLocation.z);
             }
             else {
-                Services.TELEPORT.teleportEntity(player, teleportDimension, teleportLocation);
+                Services.TELEPORT.teleportEntity(player, packet.teleportDimension, packet.teleportLocation);
             }
 
             player.displayClientMessage(Component.literal("Quickloaded.").withStyle(ChatFormatting.DARK_GREEN), true);
