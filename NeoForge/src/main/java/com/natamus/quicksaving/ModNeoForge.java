@@ -3,7 +3,6 @@ package com.natamus.quicksaving;
 import com.natamus.collective.check.RegisterMod;
 import com.natamus.collective.check.ShouldLoadCheck;
 import com.natamus.quicksaving.neoforge.config.IntegrateNeoForgeConfig;
-import com.natamus.quicksaving.neoforge.events.NeoForgeKeyMappingRegister;
 import com.natamus.quicksaving.neoforge.events.NeoForgeQuicksaveEvents;
 import com.natamus.quicksaving.util.Reference;
 import net.neoforged.api.distmarker.Dist;
@@ -23,7 +22,7 @@ public class ModNeoForge {
 		}
 
 		modEventBus.addListener(this::loadComplete);
-		modEventBus.register(NeoForgeKeyMappingRegister.class);
+		ModCommon.registerHotkeys();
 
 		setGlobalConstants();
 		ModCommon.init();
