@@ -3,7 +3,6 @@ package com.natamus.quicksaving;
 import com.natamus.collective.check.RegisterMod;
 import com.natamus.collective.check.ShouldLoadCheck;
 import com.natamus.quicksaving.forge.config.IntegrateForgeConfig;
-import com.natamus.quicksaving.forge.events.ForgeKeyMappingRegister;
 import com.natamus.quicksaving.forge.events.ForgeQuicksaveEvents;
 import com.natamus.quicksaving.util.Reference;
 import net.minecraftforge.api.distmarker.Dist;
@@ -26,7 +25,7 @@ public class ModForge {
 		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
 		modEventBus.addListener(this::loadComplete);
-		modEventBus.register(ForgeKeyMappingRegister.class);
+		ModCommon.registerHotkeys();
 
 		setGlobalConstants();
 		ModCommon.init();

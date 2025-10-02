@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "quicksaving",
-  "version": "1.5",
+  "version": "1.6",
 
   "name": "Quicksaving",
   "description": "Adds quicksave and quickload capabilities, optionally client-side only.",
@@ -23,7 +23,7 @@
     "fabric": "*",
     "minecraft": ">=1.20",
     "java": ">=17",
-    "collective": ">=7.91"
+    "collective": ">=8.5"
   },
 
   "custom": {
@@ -45,11 +45,10 @@
 	  " Andrean Olgo",
 	  " aternosorg",
 	  " Cherriesaurus",
-	  " David Sanchez",
-	  " drdog111",
 	  " Michael W. S.",
 	  " t128",
 	  " Tyler Behl",
-	  " XAgent"
+	  " XAgent",
+	  " ตัวตรึง พระนคร"
   ]
 }
