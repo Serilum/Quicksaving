@@ -6,7 +6,7 @@ logoFile="icon.png"
 
 [[mods]]
 modId="quicksaving"
-version="1.6"
+version="1.7"
 displayName="Quicksaving"
 displayURL="https://serilum.com/mod/quicksaving"
 authors="Rick South"
@@ -22,7 +22,7 @@ If you would like to contribute too, check out https://serilum.com/donate. Appre
 [[dependencies.quicksaving]]
     modId="collective"
     mandatory=true
-    versionRange="[8.5,)"
+    versionRange="[8.8,)"
     ordering="NONE"
     side="BOTH"
 
