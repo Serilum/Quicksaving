@@ -47,7 +47,7 @@ public class ToServerTeleportPlayerPacket {
             Player player = ctx.sender();
 
 			if (ConfigHandler.musthaveCheatAccessForQuickloadOnServer && !player.hasPermissions(2)) {
-				MessageFunctions.sendMessage(player, "With the current server configuration, you may only quickload with cheat access enabled.", ChatFormatting.RED);
+				MessageFunctions.sendTranslatableMessage(player, "collective.quicksaving.message.currentserverconfiguration", ChatFormatting.RED);
 				return;
 			}
 
@@ -62,7 +62,7 @@ public class ToServerTeleportPlayerPacket {
                 Services.TELEPORT.teleportEntity(player, packet.teleportDimension, packet.teleportLocation);
             }
 
-            player.displayClientMessage(Component.literal("Quickloaded.").withStyle(ChatFormatting.DARK_GREEN), true);
+            player.displayClientMessage(Component.translatable("collective.quicksaving.message.quickloaded").withStyle(ChatFormatting.DARK_GREEN), true);
         }
     }
 }
