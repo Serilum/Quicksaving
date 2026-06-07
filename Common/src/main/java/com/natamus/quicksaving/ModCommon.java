@@ -29,7 +29,7 @@ public class ModCommon {
 	public static void registerHotkeys() {
 		KeyMapping.Category keyMappingsCategory = KeyMapping.Category.register(Identifier.fromNamespaceAndPath(Reference.MOD_ID, "quicksaving"));
 
-		Constants.quicksavingKey = Services.REGISTERKEYMAPPING.registerKeyMapping("quicksaving.key.quicksaving", Constants.F6key, keyMappingsCategory);
-		Constants.quickloadKey = Services.REGISTERKEYMAPPING.registerKeyMapping("quicksaving.key.quickload", Constants.F8key, keyMappingsCategory);
+		Constants.quicksavingKey = Services.REGISTERKEYMAPPING.registerKeyMapping("collective.quicksaving.key.quicksaving", Constants.F6key, keyMappingsCategory);
+		Constants.quickloadKey = Services.REGISTERKEYMAPPING.registerKeyMapping("collective.quicksaving.key.quickload", Constants.F8key, keyMappingsCategory);
 	}
 }
