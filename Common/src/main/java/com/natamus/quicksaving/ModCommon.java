@@ -24,7 +24,7 @@ public class ModCommon {
 	}
 
 	public static void registerHotkeys() {
-		Constants.quicksavingKey = Services.REGISTERKEYMAPPING.registerKeyMapping("quicksaving.key.quicksaving", Constants.F6key, "quicksaving.key.quicksaving");
-		Constants.quickloadKey = Services.REGISTERKEYMAPPING.registerKeyMapping("quicksaving.key.quickload", Constants.F8key, "quicksaving.key.quicksaving");
+		Constants.quicksavingKey = Services.REGISTERKEYMAPPING.registerKeyMapping("collective.quicksaving.key.quicksaving", Constants.F6key, "collective.quicksaving.key.quicksaving");
+		Constants.quickloadKey = Services.REGISTERKEYMAPPING.registerKeyMapping("collective.quicksaving.key.quickload", Constants.F8key, "collective.quicksaving.key.quicksaving");
 	}
 }

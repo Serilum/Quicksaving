@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "quicksaving",
-  "version": "1.6",
+  "version": "1.8",
 
   "name": "Quicksaving",
   "description": "Adds quicksave and quickload capabilities, optionally client-side only.",
@@ -23,7 +23,7 @@
     "fabric": "*",
     "minecraft": ">=1.20",
     "java": ">=17",
-    "collective": ">=8.5"
+    "collective": ">=8.25"
   },
 
   "custom": {
@@ -41,14 +41,12 @@
 	  "If you would like to contribute too, check out https://serilum.com/donate.",
 	  " ",
 	  "Membership sponsors:",
-	  " Alister",
 	  " Andrean Olgo",
 	  " aternosorg",
 	  " Cherriesaurus",
-	  " Michael W. S.",
-	  " t128",
-	  " Tyler Behl",
-	  " XAgent",
-	  " ตัวตรึง พระนคร"
+	  " Linda Jansen",
+	  " Michelle Smith",
+	  " MWS",
+	  " Tyler Behl"
   ]
 }

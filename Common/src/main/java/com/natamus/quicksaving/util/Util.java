@@ -24,7 +24,7 @@ public class Util {
 		Variables.savedLocation = new Vector3f((float)player.position().x, (float)player.position().y, (float)player.position().z);
 		Variables.savedDimension = player.level().dimension();
 
-		player.displayClientMessage(Component.literal("Quicksaved.").withStyle(ChatFormatting.DARK_GREEN), true);
+		player.displayClientMessage(Component.translatable("collective.quicksaving.message.quicksaved").withStyle(ChatFormatting.DARK_GREEN), true);
 	}
 
 	public static void loadLastLocation(LocalPlayer player) {
@@ -51,10 +51,10 @@ public class Util {
 
 				player.connection.sendCommand("execute in " + Variables.savedDimension.location() + " run tp @p " + String.format("%.2f", Variables.savedLocation.x) + " " + String.format("%.2f", Variables.savedLocation.y) + " " + String.format("%.2f", Variables.savedLocation.z));
 
-				player.displayClientMessage(Component.literal("Quickloaded.").withStyle(ChatFormatting.DARK_GREEN), true);
+				player.displayClientMessage(Component.translatable("collective.quicksaving.message.quickloaded").withStyle(ChatFormatting.DARK_GREEN), true);
 			}
 			else {
-				MessageFunctions.sendMessage(player, "In order to quickload, you'll need to install the mod on the server or have cheat access.", ChatFormatting.RED);
+				MessageFunctions.sendTranslatableMessage(player, "collective.quicksaving.message.orderquickloadll", ChatFormatting.RED);
 			}
 		}
 	}
