@@ -2,7 +2,6 @@ package com.natamus.quicksaving.forge.events;
 
 import com.natamus.quicksaving.data.Constants;
 import com.natamus.quicksaving.events.QuicksaveEvents;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.bus.BusGroup;

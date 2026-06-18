@@ -32,7 +32,7 @@ public class QuicksaveEvents {
 	}
 
 	public static void onQuicksavePress() {
-		if (mc.screen instanceof ChatScreen) {
+		if (mc.gui.screen()instanceof ChatScreen) {
 			return;
 		}
 
@@ -40,7 +40,7 @@ public class QuicksaveEvents {
 	}
 
 	public static void onQuickloadPress() {
-		if (mc.screen instanceof ChatScreen) {
+		if (mc.gui.screen()instanceof ChatScreen) {
 			return;
 		}
 
