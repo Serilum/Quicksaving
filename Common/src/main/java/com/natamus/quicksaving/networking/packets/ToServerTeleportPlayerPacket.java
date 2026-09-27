@@ -19,50 +19,50 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 public class ToServerTeleportPlayerPacket {
-    public static final ResourceLocation CHANNEL = ResourceLocation.fromNamespaceAndPath(Reference.MOD_ID, "to_server_teleport_player_packet");
+	public static final ResourceLocation CHANNEL = ResourceLocation.fromNamespaceAndPath(Reference.MOD_ID, "to_server_teleport_player_packet");
 
-    private final Vec3 teleportLocation;
-    private final ResourceKey<Level> teleportDimension;
+	private final Vec3 teleportLocation;
+	private final ResourceKey<Level> teleportDimension;
 
-    public ToServerTeleportPlayerPacket(Vec3 teleportLocationIn, ResourceKey<Level> teleportDimensionIn) {
-        this.teleportLocation = teleportLocationIn;
-        this.teleportDimension = teleportDimensionIn;
-    }
+	public ToServerTeleportPlayerPacket(Vec3 teleportLocationIn, ResourceKey<Level> teleportDimensionIn) {
+		this.teleportLocation = teleportLocationIn;
+		this.teleportDimension = teleportDimensionIn;
+	}
 
-    public static ToServerTeleportPlayerPacket decode(FriendlyByteBuf buf) {
-        Vec3 teleportLocationIn = buf.readVec3();
-        ResourceKey<Level> teleportDimensionIn = buf.readResourceKey(Registries.DIMENSION);
+	public static ToServerTeleportPlayerPacket decode(FriendlyByteBuf buf) {
+		Vec3 teleportLocationIn = buf.readVec3();
+		ResourceKey<Level> teleportDimensionIn = buf.readResourceKey(Registries.DIMENSION);
 
-        return new ToServerTeleportPlayerPacket(teleportLocationIn, teleportDimensionIn);
-    }
+		return new ToServerTeleportPlayerPacket(teleportLocationIn, teleportDimensionIn);
+	}
 
-    public void encode(FriendlyByteBuf buf) {
-        buf.writeVec3(teleportLocation);
-        buf.writeResourceKey(teleportDimension);
-    }
+	public void encode(FriendlyByteBuf buf) {
+		buf.writeVec3(teleportLocation);
+		buf.writeResourceKey(teleportDimension);
+	}
 
-    public static void handle(PacketContext<ToServerTeleportPlayerPacket> ctx) {
-        if (ctx.side().equals(Side.SERVER)) {
-            ToServerTeleportPlayerPacket packet = ctx.message();
-            Player player = ctx.sender();
+	public static void handle(PacketContext<ToServerTeleportPlayerPacket> ctx) {
+		if (ctx.side().equals(Side.SERVER)) {
+			ToServerTeleportPlayerPacket packet = ctx.message();
+			Player player = ctx.sender();
 
 			if (ConfigHandler.musthaveCheatAccessForQuickloadOnServer && !player.hasPermissions(2)) {
 				MessageFunctions.sendTranslatableMessage(player, "collective.quicksaving.message.currentserverconfiguration", ChatFormatting.RED);
 				return;
 			}
 
-            if (!player.hasEffect(MobEffects.SLOW_FALLING)) {
-                player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 20, 255, true, false));
-            }
+			if (!player.hasEffect(MobEffects.SLOW_FALLING)) {
+				player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 20, 255, true, false));
+			}
 
-            if (player.level().dimension().equals(packet.teleportDimension)) {
-                player.teleportTo(packet.teleportLocation.x, packet.teleportLocation.y, packet.teleportLocation.z);
-            }
-            else {
-                Services.TELEPORT.teleportEntity(player, packet.teleportDimension, packet.teleportLocation);
-            }
+			if (player.level().dimension().equals(packet.teleportDimension)) {
+				player.teleportTo(packet.teleportLocation.x, packet.teleportLocation.y, packet.teleportLocation.z);
+			}
+			else {
+				Services.TELEPORT.teleportEntity(player, packet.teleportDimension, packet.teleportLocation);
+			}
 
-            player.displayClientMessage(Component.translatable("collective.quicksaving.message.quickloaded").withStyle(ChatFormatting.DARK_GREEN), true);
-        }
-    }
+			player.displayClientMessage(Component.translatable("collective.quicksaving.message.quickloaded").withStyle(ChatFormatting.DARK_GREEN), true);
+		}
+	}
 }

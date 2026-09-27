@@ -8,21 +8,21 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 
 public class ToClientConfirmModIsInstalledPacket {
-    public static final ResourceLocation CHANNEL = ResourceLocation.fromNamespaceAndPath(Reference.MOD_ID, "to_client_confirm_mod_is_installed_packet");
+	public static final ResourceLocation CHANNEL = ResourceLocation.fromNamespaceAndPath(Reference.MOD_ID, "to_client_confirm_mod_is_installed_packet");
 
-    public ToClientConfirmModIsInstalledPacket() {
-    }
+	public ToClientConfirmModIsInstalledPacket() {
+	}
 
-    public static ToClientConfirmModIsInstalledPacket decode(FriendlyByteBuf buf) {
-        return new ToClientConfirmModIsInstalledPacket();
-    }
+	public static ToClientConfirmModIsInstalledPacket decode(FriendlyByteBuf buf) {
+		return new ToClientConfirmModIsInstalledPacket();
+	}
 
-    public void encode(FriendlyByteBuf buf) {
-    }
+	public void encode(FriendlyByteBuf buf) {
+	}
 
-    public static void handle(PacketContext<ToClientConfirmModIsInstalledPacket> ctx) {
-        if (ctx.side().equals(Side.CLIENT)) {
-            Variables.isInstalledOnServer = true;
-        }
-    }
+	public static void handle(PacketContext<ToClientConfirmModIsInstalledPacket> ctx) {
+		if (ctx.side().equals(Side.CLIENT)) {
+			Variables.isInstalledOnServer = true;
+		}
+	}
 }

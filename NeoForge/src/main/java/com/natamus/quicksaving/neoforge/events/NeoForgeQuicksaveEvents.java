@@ -2,7 +2,6 @@ package com.natamus.quicksaving.neoforge.events;
 
 import com.natamus.quicksaving.data.Constants;
 import com.natamus.quicksaving.events.QuicksaveEvents;
-import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.InputEvent;
