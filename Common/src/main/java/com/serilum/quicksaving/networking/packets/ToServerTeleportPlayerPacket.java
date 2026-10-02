@@ -1,0 +1,69 @@
+package com.serilum.quicksaving.networking.packets;
+
+import com.natamus.collective.functions.MessageFunctions;
+import com.natamus.collective.implementations.networking.data.PacketContext;
+import com.natamus.collective.implementations.networking.data.Side;
+import com.natamus.collective.services.Services;
+import com.serilum.quicksaving.config.ConfigHandler;
+import com.serilum.quicksaving.util.Reference;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+import org.joml.Vector3f;
+
+public class ToServerTeleportPlayerPacket {
+	public static final ResourceLocation CHANNEL = new ResourceLocation(Reference.MOD_ID, "to_server_teleport_player_packet");
+
+	private final Vector3f teleportLocation;
+	private final ResourceKey<Level> teleportDimension;
+
+	public ToServerTeleportPlayerPacket(Vector3f teleportLocationIn, ResourceKey<Level> teleportDimensionIn) {
+		this.teleportLocation = teleportLocationIn;
+		this.teleportDimension = teleportDimensionIn;
+	}
+
+	public static ToServerTeleportPlayerPacket decode(FriendlyByteBuf buf) {
+		Vector3f teleportLocationIn = buf.readVector3f();
+		ResourceKey<Level> teleportDimensionIn = buf.readResourceKey(Registries.DIMENSION);
+
+		return new ToServerTeleportPlayerPacket(teleportLocationIn, teleportDimensionIn);
+	}
+
+	public void encode(FriendlyByteBuf buf) {
+		buf.writeVector3f(teleportLocation);
+		buf.writeResourceKey(teleportDimension);
+	}
+
+	public static void handle(PacketContext<ToServerTeleportPlayerPacket> ctx) {
+		if (ctx.side().equals(Side.SERVER)) {
+			ToServerTeleportPlayerPacket packet = ctx.message();
+			Player player = ctx.sender();
+
+			if (ConfigHandler.musthaveCheatAccessForQuickloadOnServer && !player.hasPermissions(2)) {
+				MessageFunctions.sendTranslatableMessage(player, "collective.quicksaving.message.currentserverconfiguration", ChatFormatting.RED);
+				return;
+			}
+
+			if (!player.hasEffect(MobEffects.SLOW_FALLING)) {
+				player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 20, 255, true, false));
+			}
+
+			if (player.level().dimension().equals(packet.teleportDimension)) {
+				player.teleportTo(packet.teleportLocation.x, packet.teleportLocation.y, packet.teleportLocation.z);
+			}
+			else {
+				Services.TELEPORT.teleportEntity(player, packet.teleportDimension, new Vec3(packet.teleportLocation.x, packet.teleportLocation.y, packet.teleportLocation.z));
+			}
+
+			player.displayClientMessage(Component.translatable("collective.quicksaving.message.quickloaded").withStyle(ChatFormatting.DARK_GREEN), true);
+		}
+	}
+}
