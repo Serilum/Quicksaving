@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
   "id": "quicksaving",
-  "version": "1.9",
+  "version": "2.0",
 
   "name": "Quicksaving",
   "description": "Adds quicksave and quickload capabilities, optionally client-side only.",
-  "authors": [ "Rick South" ],
+  "authors": [ "Serilum" ],
   "contact": {
     "homepage": "https://serilum.com/mod/quicksaving",
     "sources": "https://github.com/Serilum/Quicksaving",
@@ -16,7 +16,7 @@
   "icon": "icon.png",
 
   "environment": "*",
-  "entrypoints": { "main": [ "com.natamus.quicksaving.ModFabric" ], "client": [ "com.natamus.quicksaving.ModFabricClient" ], "modmenu": [ "com.natamus.quicksaving.fabric.config.IntegrateModMenu" ] },
+  "entrypoints": { "main": [ "com.serilum.quicksaving.ModFabric" ], "client": [ "com.serilum.quicksaving.ModFabricClient" ], "modmenu": [ "com.serilum.quicksaving.fabric.config.IntegrateModMenu" ] },
 
   "depends": {
     "fabricloader": ">=0.18.0",
@@ -38,7 +38,7 @@
 	  " ",
 	  "Thank you very much to my Membership sponsors for supporting the development of this mod!",
 	  " ",
-	  "If you would like to contribute too, check out https://serilum.com/donate.",
+	  "If you would like to contribute too, check out https://serilum.com/donate",
 	  " ",
 	  "Membership sponsors:",
 	  " Andrean Olgo",

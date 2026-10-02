@@ -1,0 +1,8 @@
+package com.serilum.quicksaving.util;
+
+public class Reference {
+	public static final String MOD_ID = "quicksaving";
+	public static final String NAME = "Quicksaving";
+	public static final String VERSION = "2.0";
+	public static final String ACCEPTED_VERSIONS = "[26.3.0]";
+}
